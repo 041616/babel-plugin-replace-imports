@@ -1,0 +1,20 @@
+{
+	"name": "babel-plugin-replace-imports",
+	"version": "1.0.0",
+	"description": "Replace import statements",
+	"main": "lib/index.js",
+	"scripts": {},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/041616/babel-plugin-replace-imports.git"
+	},
+	"keywords": ["babel", "import", "replace"],
+	"author": "Oleh Tarasov <041616@gmail.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/041616/babel-plugin-replace-imports/issues"
+	},
+	"homepage": "https://github.com/041616/babel-plugin-replace-imports#readme",
+	"devDependencies": {}
+}
+

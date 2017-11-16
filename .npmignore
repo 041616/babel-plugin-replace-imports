@@ -1,5 +1,6 @@
 .git/
 .idea/
 node_modules/
-lib/
+src/
+test/
 *.log

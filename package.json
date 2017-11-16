@@ -1,20 +1,41 @@
 {
-	"name": "babel-plugin-replace-imports",
-	"version": "1.0.0",
-	"description": "Replace import statements",
-	"main": "lib/index.js",
-	"scripts": {},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/041616/babel-plugin-replace-imports.git"
-	},
-	"keywords": ["babel", "import", "replace"],
-	"author": "Oleh Tarasov <041616@gmail.com>",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/041616/babel-plugin-replace-imports/issues"
-	},
-	"homepage": "https://github.com/041616/babel-plugin-replace-imports#readme",
-	"devDependencies": {}
+  "name": "babel-plugin-replace-imports",
+  "version": "1.0.0",
+  "description": "Replace import statements",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "test": "npm run build && mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/041616/babel-plugin-replace-imports.git"
+  },
+  "keywords": [
+    "babel",
+    "import",
+    "replace",
+    "multiple"
+  ],
+  "author": "Oleh Tarasov <041616@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/041616/babel-plugin-replace-imports/issues"
+  },
+  "homepage": "https://github.com/041616/babel-plugin-replace-imports#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-minify": "^0.2.0",
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1"
+  },
+  "dependencies": {
+    "lodash.isempty": "^4.4.0",
+    "lodash.isfunction": "^3.0.8",
+    "lodash.isobject": "^3.0.2",
+    "lodash.isregexp": "^4.0.1",
+    "lodash.isstring": "^4.0.1"
+  }
 }
-

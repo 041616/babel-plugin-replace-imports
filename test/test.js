@@ -5,7 +5,7 @@ const optionLabels = require('../lib').optionLabels;
 
 
 function babelTransform(options) {
-    const input = 'import "test"';
+    const input = `import 'test'`;
     const babelOptions = { plugins: [ [ './lib' ] ] };
     if (options) babelOptions.plugins[0].push(options);
     babel.transform(input, babelOptions);
@@ -135,5 +135,26 @@ describe('Tests for options:', () => {
     it('should throw an error if «replacer» option is a number', () => {
         const options = [ { test: /.*/g, replacer: 123 } ];
         assert.throws(() => babelTransform(options), getErrorMessage(1, optionLabels.replacer));
+    });
+});
+
+
+function getBabelTransformCode(input, options) {
+    const babelOptions = { plugins: [ [ './lib' ] ] };
+    babelOptions.plugins[0].push(options);
+    return babel.transform(input, babelOptions).code;
+};
+
+
+describe('Functionality tests:', () => {
+    it('only one replacement rule should be processed', () => {
+        const input = `import styl from '../stylus/common.styl';`;
+        const expected = `import styl from '../sass/common.styl';`;
+        const options = [
+            { test: /\/stylus\//, replacer: '/sass/' },
+            { test: /\.styl/i, replacer: '$&?theme-red' }
+        ];
+        const output = getBabelTransformCode(input, options);
+        assert.equal(output, expected);
     });
 });

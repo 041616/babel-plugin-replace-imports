@@ -57,6 +57,7 @@ function init({ types }) {
     return {
         visitor: {
             ImportDeclaration: (path, { opts }) => {
+                if (path.node.__processed) return;
                 if (isEmpty(opts)) throwError(0);
 
                 const source = path.node.source.value;
@@ -65,8 +66,8 @@ function init({ types }) {
 
                 if (!Array.isArray(options)) options = [ opts ];
 
-                options.forEach((option) => {
-                    const opt = getOption(option);
+                for (let i = 0; i < options.length; i++) {
+                    const opt = getOption(options[i]);
                     const regex = getTestOption(opt[optionLabels.test]);
 
                     if (regex.test(source)) {
@@ -74,14 +75,17 @@ function init({ types }) {
 
                         replacerList.forEach((replacer) => {
                             const repl = getReplacerOption(replacer);
-
-                            transforms.push(types.importDeclaration(
+                            const importDeclaration = types.importDeclaration(
                                 path.node.specifiers,
                                 types.stringLiteral(source.replace(regex, repl))
-                            ));
+                            );
+                            importDeclaration.__processed = true;
+                            transforms.push(importDeclaration);
                         });
+
+                        break;
                     }
-                });
+                }
 
                 if (transforms.length > 0) path.replaceWithMultiple(transforms);
             }

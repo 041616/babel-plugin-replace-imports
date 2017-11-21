@@ -32,7 +32,7 @@ module: {
       use: {
         loader: "babel-loader",
         options: {
-          plugins: [require("babel-plugin-replace-imports"), {
+          plugins: ["babel-plugin-replace-imports", {
             "test": /\/?regexp\//i,
             "replacer": "string"
           }]

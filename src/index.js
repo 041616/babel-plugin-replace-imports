@@ -58,13 +58,6 @@ function init({ types }) {
     return {
         visitor: {
             ImportDeclaration: (path, { opts }) => {
-                const show = path.node.source.value.includes('test_123');
-                if (show) {
-                    console.log('-----------------------------------------');
-                    console.log(path.node.source.value);
-                    console.log(path.node.__processed);
-                }
-
                 if (path.node.__processed) return;
                 if (isEmpty(opts)) throwError(0);
 
@@ -82,9 +75,6 @@ function init({ types }) {
                         const replacerList = getReplacerListOption(opt[optionLabels.replacer]);
 
                         replacerList.forEach((replacer) => {
-                            if (show) {
-                                console.log('+++++++++++');
-                            }
                             const repl = getReplacerOption(replacer);
                             const importDeclaration = types.importDeclaration(
                                 path.node.specifiers,

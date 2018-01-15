@@ -4,11 +4,13 @@ const getErrorMessage = require('../lib').getErrorMessage;
 const optionLabels = require('../lib').optionLabels;
 
 
+const INPUT = `import 'test';`;
+
+
 function babelTransform(options) {
-    const input = `import 'test'`;
     const babelOptions = { plugins: [ [ './lib' ] ] };
     if (options) babelOptions.plugins[0].push(options);
-    babel.transform(input, babelOptions);
+    return babel.transform(INPUT, babelOptions);
 };
 
 
@@ -135,6 +137,11 @@ describe('Tests for options:', () => {
     it('should throw an error if «replacer» option is a number', () => {
         const options = [ { test: /.*/g, replacer: 123 } ];
         assert.throws(() => babelTransform(options), getErrorMessage(1, optionLabels.replacer));
+    });
+
+    it('should pass if «replacer» option is a function', () => {
+        const options = [ { test: /.+/g, replacer: match => { return match } } ];
+        assert.equal(babelTransform(options).code, INPUT);
     });
 });
 
